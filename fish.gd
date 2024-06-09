@@ -1,21 +1,39 @@
-extends RigidBody2D
+extends CharacterBody2D
 
-var TARGET := Vector2(1000, 540)
-var ACC := 2.0
-var move_on := false#true
+var _RADIUS := 14.0
+#
+var MASS := 20.0
+var TARGET :=  Vector2(960, 540)
+#
+var last_position := Vector2.ZERO
+
+func _ready():
+	last_position = position
 
 func _physics_process(delta):
-	if move_on:
-		var target_vel = (TARGET - position).normalized()*400
-		linear_velocity = lerp(linear_velocity, target_vel, ACC*delta)
-	#move_and_collide(linear_velocity)
+	last_position = position
+	position += velocity*delta
+	velocity *= 0.99
+	if velocity.length() < 5:
+		velocity = Vector2.ZERO
+	var to_center = TARGET - position
+	position += to_center.normalized()*sqrt(to_center.length())*0.2
 
-func _on_body_entered(body):
-	print("ssas")
-	move_on = false
 
-func _integrate_forces(state):
-	for i in range(state.get_contact_count()):
-		var collider = state.get_collider_object(i)
-		print("asa")
-	# Add more specific reaction logic here
+func handle_impulse(impulse: Vector2):
+	#print("----")
+	#print(impulse)
+	#print("vel "+str(velocity))
+	velocity += (1.0/MASS) * impulse
+	#print("vel "+str(velocity))
+
+
+func nudge_outside(p: Vector2, normal: Vector2, boom_width: float, centrif: float):
+	var dist_from_line = abs(normal.dot(position - p))
+	var radius = _RADIUS*scale.x*1.02
+	var required_dist = boom_width+radius+1
+	var required_move = normal*(required_dist - dist_from_line)
+	position += required_move
+	var length = (position-p).length()
+	#velocity += normal*centrif*sqrt(length)
+	velocity += (position - p).normalized()*centrif*sqrt(length)

@@ -13,5 +13,5 @@ func rand_loc_in_area():
 func get_spawned_fish():
 	var fish = preload("res://fish.tscn").instantiate()
 	fish.position = rand_loc_in_area()
-	fish.apply_impulse((Vector2(1000, 600)-fish.position).normalized()*100)
+	fish.velocity = (Vector2(1000, 600)-fish.position).normalized()*100
 	return fish
