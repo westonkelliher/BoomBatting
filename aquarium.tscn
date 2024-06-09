@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv326hlvlag3b"]
+
+[ext_resource type="Script" path="res://Aquarium.gd" id="1_wewul"]
+[ext_resource type="Texture2D" uid="uid://ceddol02wm8uu" path="res://images/coast.png" id="2_p8q5c"]
+
+[node name="Aquarium" type="Node2D"]
+script = ExtResource("1_wewul")
+
+[node name="BG" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -124)
+texture = ExtResource("2_p8q5c")
+centered = false
+
+[node name="All" type="Area2D" parent="."]
+
+[node name="Shape" type="CollisionPolygon2D" parent="All"]
+polygon = PackedVector2Array(-10, 342, 264, 272, 737, 227, 1296, 229, 1396, 299, 1438, 465, 1470, 686, 1543, 805, 1659, 829, 1745, 789, 1806, 665, 1812, 491, 1832, 359, 1883, 314, 1936, 342, 1936, 1087, -10, 1087)

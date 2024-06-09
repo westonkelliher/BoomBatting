@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://qldrpwybbrdt"]
+
+[ext_resource type="PackedScene" uid="uid://b0nhiwvvev7ix" path="res://coast.tscn" id="1_0i4en"]
+[ext_resource type="Script" path="res://prototype/boom_spin.gd" id="1_8t64s"]
+[ext_resource type="PackedScene" uid="uid://dfxm6r8wgqj1o" path="res://boom.tscn" id="2_bq66u"]
+[ext_resource type="PackedScene" uid="uid://c6rp8cbtfrdmf" path="res://fish.tscn" id="4_j83ga"]
+[ext_resource type="PackedScene" uid="uid://cv326hlvlag3b" path="res://aquarium.tscn" id="5_hah2e"]
+
+[node name="BoomSpin" type="Node2D"]
+script = ExtResource("1_8t64s")
+
+[node name="Coast" parent="." instance=ExtResource("1_0i4en")]
+
+[node name="Boom" parent="." instance=ExtResource("2_bq66u")]
+position = Vector2(1039, 747)
+scale = Vector2(1.5, 1.5)
+
+[node name="Controlpads" type="GameNiteControlpads" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="Fish" parent="." instance=ExtResource("4_j83ga")]
+position = Vector2(1154, 659)
+
+[node name="Aquarium" parent="." instance=ExtResource("5_hah2e")]
+visible = false
+
+[connection signal="message_received" from="Controlpads" to="." method="_on_controlpads_message_received"]

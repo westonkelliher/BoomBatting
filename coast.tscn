@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0nhiwvvev7ix"]
+
+[ext_resource type="Texture2D" uid="uid://ceddol02wm8uu" path="res://images/coast.png" id="1_66xfs"]
+[ext_resource type="Texture2D" uid="uid://d0im4awj1cyl0" path="res://images/fence.png" id="2_0s78o"]
+
+[node name="Coast" type="Node2D"]
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(0, -124)
+texture = ExtResource("1_66xfs")
+centered = false
+
+[node name="Fence" type="Sprite2D" parent="."]
+texture = ExtResource("2_0s78o")
+centered = false
+
+[node name="Barrier" type="StaticBody2D" parent="."]
+visible = false
+scale = Vector2(1, 0.5)
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Barrier"]
+polygon = PackedVector2Array(2075, 1, 2083, 141, 1744, 52, 162, 54, -114, 156, -111, 0)
