@@ -26,4 +26,9 @@ position = Vector2(1154, 659)
 [node name="Aquarium" parent="." instance=ExtResource("5_hah2e")]
 visible = false
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.5
+autostart = true
+
 [connection signal="message_received" from="Controlpads" to="." method="_on_controlpads_message_received"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
