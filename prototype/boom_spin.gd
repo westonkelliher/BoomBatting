@@ -5,17 +5,24 @@ var WHEEL_MULTIPLE := 1.6
 var last_angle := 0.0
 var new_angle := 0.0
 
+var first = true
+
+var game_is_over = false
 
 func _ready():
-	for i in range(7):
+	for i in range(10):
 		var f = $Aquarium.get_spawned_fish()
-		var s = randf()*1.5 + 0.75
-		#f.scale *= s
-		#f.MASS *= s*sqrt(s)
-		f.TARGET += Vector2(randf()*800 - 200, randf()*800 -200)
 		add_child(f)
+		f.AQUARIUM = $Aquarium
+		f.POST = $ScorePost
+		f.start_swim()
 
 func _on_controlpads_message_received(client, message):
+	if game_is_over:
+		return
+	if first:
+		first = false
+		$TimePost/Timer.start()
 	if message == "let-go":
 		$Boom.set_inactive()
 		return
@@ -31,6 +38,9 @@ func _on_controlpads_message_received(client, message):
 	$Boom.apply_wheel_turn(delta_a/WHEEL_MULTIPLE)
 
 
-func _on_timer_timeout():
-	$Fish.position = Vector2(1500, 500)
-	$Fish.velocity = Vector2(-200, 50)
+func _on_time_post_times_up():
+	game_is_over = true
+	$GameOver.visible = true
+	$ScorePost.scale *= 2
+	$ScorePost.position = Vector2(400, 300)
+	$Boom.set_process(false)

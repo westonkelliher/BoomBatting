@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://qldrpwybbrdt"]
+[gd_scene load_steps=8 format=3 uid="uid://qldrpwybbrdt"]
 
 [ext_resource type="PackedScene" uid="uid://b0nhiwvvev7ix" path="res://coast.tscn" id="1_0i4en"]
 [ext_resource type="Script" path="res://prototype/boom_spin.gd" id="1_8t64s"]
 [ext_resource type="PackedScene" uid="uid://dfxm6r8wgqj1o" path="res://boom.tscn" id="2_bq66u"]
-[ext_resource type="PackedScene" uid="uid://c6rp8cbtfrdmf" path="res://fish.tscn" id="4_j83ga"]
+[ext_resource type="PackedScene" uid="uid://bb8gxg2biwkhx" path="res://score_post.tscn" id="5_clcpc"]
 [ext_resource type="PackedScene" uid="uid://cv326hlvlag3b" path="res://aquarium.tscn" id="5_hah2e"]
+[ext_resource type="PackedScene" uid="uid://byleomyb7ve52" path="res://time_post.tscn" id="6_ic0bv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tcxkw"]
+font_size = 160
 
 [node name="BoomSpin" type="Node2D"]
 script = ExtResource("1_8t64s")
@@ -20,15 +24,31 @@ scale = Vector2(1.5, 1.5)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="Fish" parent="." instance=ExtResource("4_j83ga")]
-position = Vector2(1154, 659)
-
 [node name="Aquarium" parent="." instance=ExtResource("5_hah2e")]
 visible = false
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 3.5
-autostart = true
+[node name="TimePost" parent="." instance=ExtResource("6_ic0bv")]
+position = Vector2(1835, 159)
+
+[node name="GameOver" type="Node2D" parent="."]
+visible = false
+z_index = 5
+
+[node name="Panel" type="Panel" parent="GameOver"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Label" type="Label" parent="GameOver"]
+offset_left = 529.0
+offset_top = 402.0
+offset_right = 1398.0
+offset_bottom = 621.0
+text = "Game Over"
+label_settings = SubResource("LabelSettings_tcxkw")
+
+[node name="ScorePost" parent="." instance=ExtResource("5_clcpc")]
+z_index = 6
+position = Vector2(128, 118)
 
 [connection signal="message_received" from="Controlpads" to="." method="_on_controlpads_message_received"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="times_up" from="TimePost" to="." method="_on_time_post_times_up"]

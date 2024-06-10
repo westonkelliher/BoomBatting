@@ -12,7 +12,12 @@ position = Vector2(0, -124)
 texture = ExtResource("2_p8q5c")
 centered = false
 
-[node name="All" type="Area2D" parent="."]
+[node name="Swim" type="Area2D" parent="."]
 
-[node name="Shape" type="CollisionPolygon2D" parent="All"]
-polygon = PackedVector2Array(-10, 342, 264, 272, 737, 227, 1296, 229, 1396, 299, 1438, 465, 1470, 686, 1543, 805, 1659, 829, 1745, 789, 1806, 665, 1812, 491, 1832, 359, 1883, 314, 1936, 342, 1936, 1087, -10, 1087)
+[node name="Shape" type="CollisionPolygon2D" parent="Swim"]
+polygon = PackedVector2Array(-23, 371, 264, 272, 737, 227, 1296, 229, 1396, 299, 1438, 465, 1470, 686, 1543, 805, 1634, 909, 1650, 1099, -20, 1099)
+
+[node name="Land" type="Area2D" parent="."]
+
+[node name="Shape" type="Polygon2D" parent="Land"]
+polygon = PackedVector2Array(-104, 340, 84, 274, 452, 206, 1010, 184, 1352, 186, 1450, 278, 1504, 598, 1550, 744, 1630, 786, 1734, 722, 1766, 584, 1796, 306, 1876, 270, 2174, 355, 2152, -176, -218, -171)

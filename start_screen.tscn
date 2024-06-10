@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://clvxcn16sl6q3"]
+
+[ext_resource type="Texture2D" uid="uid://6f5sy1g28hr1" path="res://images/cover.png" id="1_4ivs5"]
+[ext_resource type="Script" path="res://start_screen.gd" id="1_6j4sf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iu53j"]
+font_size = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1meqv"]
+bg_color = Color(0.831373, 0.831373, 0.831373, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87rd2"]
+bg_color = Color(0.0117647, 0.639216, 0.188235, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="StartScreen" type="Node2D"]
+script = ExtResource("1_6j4sf")
+
+[node name="BG" type="Sprite2D" parent="."]
+texture = ExtResource("1_4ivs5")
+centered = false
+
+[node name="Next" type="Node2D" parent="."]
+
+[node name="Shade" type="Panel" parent="Next"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Instructions" type="Label" parent="Next"]
+offset_left = 640.0
+offset_top = 805.0
+offset_right = 1286.0
+offset_bottom = 860.0
+text = "Spin your wheel to start the game"
+label_settings = SubResource("LabelSettings_iu53j")
+
+[node name="FillBar" type="Panel" parent="Next"]
+offset_left = 660.0
+offset_top = 900.0
+offset_right = 1260.0
+offset_bottom = 960.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1meqv")
+
+[node name="Progress" type="Panel" parent="Next/FillBar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 590.0
+offset_bottom = 50.0
+scale = Vector2(0.01, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_87rd2")
+
+[node name="Controlpads" type="GameNiteControlpads" parent="."]
+
+[node name="IntroTimer" type="Timer" parent="."]
+
+[connection signal="message_received" from="Controlpads" to="." method="_on_controlpads_message_received"]

@@ -3,9 +3,10 @@ extends Node2D
 var _BOOM_LENGTH := 200.0
 var _BOOM_WIDTH := 16.0
 #
-var MAX_TURN_SPEED := 3.0 #3.0
+var MAX_TURN_SPEED := 5.0 #3.0
 var START_TURN_SPEED := 1.0 #1.0
 var TURN_ACC := 2.0 #2.0
+var TURN_SPRING := 0.5 #0.5
 var TURN_DEC := 3.0 #3.0
 var TURN_DAMP := 1.5 #1.5
 #
@@ -33,10 +34,12 @@ func d_a(a1: float, a2: float):
 
 
 func overwrite():
-	TURN_DAMP = 0.1
-	TURN_DEC = 0.005
-	TURN_ACC = 30.0
-	MASS = 5.0
+	#return
+	TURN_SPRING = 2.0
+	MAX_TURN_SPEED = 3.0
+	TURN_ACC = 5.0
+	TURN_DEC = 10.0
+	TURN_DAMP = 10.0
 
 #### builtins ####
 func _process(delta):
@@ -51,7 +54,9 @@ func _physics_process(delta):
 		target_angle = lerp_angle(target_angle, rotation, amnt)
 	if cranking:
 		var target_speed = MAX_TURN_SPEED*target_direction()
-		turn_speed = move_toward(turn_speed, target_speed, TURN_ACC*delta)
+		var turn_required = abs(d_a(rotation, target_angle))
+		var acc_amnt = (TURN_ACC + turn_required*TURN_SPRING)*delta
+		turn_speed = move_toward(turn_speed, target_speed, acc_amnt)
 		var old_rot = rotation
 		rotate_not_past_target(delta)
 		if abs(d_a(rotation, target_angle)) < 0.00001:

@@ -9,7 +9,7 @@ radius = 14.0
 
 [node name="Fish" type="CharacterBody2D"]
 z_index = 1
-collision_layer = 4
+collision_layer = 0
 script = ExtResource("1_6kfub")
 
 [node name="Graphic" type="Sprite2D" parent="."]
@@ -24,3 +24,9 @@ shape = SubResource("CircleShape2D_lb1yg")
 modulate = Color(0.870588, 0.870588, 0.870588, 0.513726)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_28r57")
+
+[node name="SwimTimer" type="Timer" parent="."]
+wait_time = 12.0
+one_shot = true
+
+[connection signal="timeout" from="SwimTimer" to="." method="_on_swim_timer_timeout"]
