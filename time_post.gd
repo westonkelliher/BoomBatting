@@ -2,7 +2,7 @@ extends Node2D
 
 signal times_up()
 
-var secs_left := 60
+var secs_left := 300
 
 func _ready():
 	$Number.text = str(secs_left)

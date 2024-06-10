@@ -10,12 +10,15 @@ var first = true
 var game_is_over = false
 
 func _ready():
-	for i in range(10):
+	for i in range(20):
 		var f = $Aquarium.get_spawned_fish()
 		add_child(f)
 		f.AQUARIUM = $Aquarium
 		f.POST = $ScorePost
 		f.start_swim()
+
+func _physics_process(delta):
+	$S.rotation += -0.25*delta
 
 func _on_controlpads_message_received(client, message):
 	if game_is_over:
@@ -24,7 +27,7 @@ func _on_controlpads_message_received(client, message):
 		first = false
 		$TimePost/Timer.start()
 	if message == "let-go":
-		$Boom.set_inactive()
+		$S/Boat/Help/Boom.set_inactive()
 		return
 	#
 	last_angle = new_angle
@@ -35,7 +38,7 @@ func _on_controlpads_message_received(client, message):
 	elif delta_a < -PI:
 		delta_a += PI*2
 	#
-	$Boom.apply_wheel_turn(delta_a/WHEEL_MULTIPLE)
+	$S/Boat/Help/Boom.apply_wheel_turn(delta_a/WHEEL_MULTIPLE)
 
 
 func _on_time_post_times_up():
@@ -43,4 +46,4 @@ func _on_time_post_times_up():
 	$GameOver.visible = true
 	$ScorePost.scale *= 2
 	$ScorePost.position = Vector2(400, 300)
-	$Boom.set_process(false)
+	$S/Boat/Help/Boom.set_process(false)

@@ -24,6 +24,8 @@ func _on_controlpads_message_received(client, message):
 
 
 func modify_progress(amount):
+	if not $Next.visible:
+		return
 	var old_progress = progress
 	var new_progress = move_toward(old_progress, 1.0, amount)
 	if amount < 0:
@@ -31,4 +33,9 @@ func modify_progress(amount):
 	progress = new_progress
 	var move_amnt = 0.01 + abs(progress - $Next/FillBar/Progress.scale.x)*0.05
 	$Next/FillBar/Progress.scale.x = move_toward($Next/FillBar/Progress.scale.x, progress, move_amnt)
-	start_game.emit()
+	if progress > 0.99:
+		start_game.emit(current_client)
+
+
+func _on_intro_timer_timeout():
+	$Next.visible = true

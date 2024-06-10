@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name Fish
 
 signal done_swimming(fish)
 
@@ -124,7 +124,7 @@ func touch_down():
 	$Cover.visible = false
 	is_swimming = false
 	is_on_land = true
-	collision_layer = 0b1000
+	collision_layer = 0b10000
 
 func leap():
 	decel = DECEL_AIR

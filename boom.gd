@@ -1,13 +1,13 @@
 extends Node2D
 
 var _BOOM_LENGTH := 200.0
-var _BOOM_WIDTH := 16.0
+var _BOOM_WIDTH := 14.0
 #
-var MAX_TURN_SPEED := 5.0 #3.0
+var MAX_TURN_SPEED := 4.0 #3.0
 var START_TURN_SPEED := 1.0 #1.0
-var TURN_ACC := 2.0 #2.0
-var TURN_SPRING := 0.5 #0.5
-var TURN_DEC := 3.0 #3.0
+var TURN_ACC := 4.0 #2.0
+var TURN_SPRING := 2.0 #0.5
+var TURN_DEC := 4.0 #3.0
 var TURN_DAMP := 1.5 #1.5
 #
 var TARGET_SPRING := 2.0
@@ -15,7 +15,7 @@ var TARGET_ACC := 0.5 # 2.0
 var TARGET_LEAD_AMOUNT := 2.0 #PI*0.7
 var STOPPING_FACTOR := 0.8
 #
-var MASS := 100.0
+var MASS := 30.0
 #
 var target_angle := 0.0
 var turn_speed := 0.0
@@ -34,7 +34,7 @@ func d_a(a1: float, a2: float):
 
 
 func overwrite():
-	#return
+	return
 	TURN_SPRING = 2.0
 	MAX_TURN_SPEED = 3.0
 	TURN_ACC = 5.0

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://br4c60h3uvyyg"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_8r65l"]
+[ext_resource type="PackedScene" uid="uid://clvxcn16sl6q3" path="res://start_screen.tscn" id="2_vau23"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_8r65l")
+
+[node name="StartScreen" parent="." instance=ExtResource("2_vau23")]
+
+[connection signal="start_game" from="StartScreen" to="." method="_on_start_screen_start_game"]
